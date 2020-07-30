@@ -86,7 +86,7 @@ def testFile(model, fileNames, testFilePath):
 
 def testFileFromPaths(modelPath, testFilePath):
     a, b = loadModel(modelPath)
-    testFile(a, b, testFilePath)
+    return testFile(a, b, testFilePath)
 
 
 def testModelOnFile(featurePath, testPath):
