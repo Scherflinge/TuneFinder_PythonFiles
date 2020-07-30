@@ -15,7 +15,7 @@ def main(model_path, test_path):
     singleWavToMidi(test_path, mid_path, skipExistingMidiFiles=False)
     fileMidiToFeatures(mid_path, feature_path, secondsPerClip=8,
                        featuresPerClip=200, spread=4, tempoSpread=3)
-    print(testFileFromPaths(model_path, feature_path))
+    print(testFileFromPaths(model_path, feature_path, useNames=False))
 
 
 if __name__ == "__main__":

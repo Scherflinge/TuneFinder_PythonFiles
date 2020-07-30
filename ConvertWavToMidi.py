@@ -5,7 +5,10 @@ import FileManagement
 
 def __getCommand__(clean=False):
     this_directory = os.path.dirname(os.path.abspath(__file__))
-    command = os.path.join(this_directory, "waon-0.11-mingw", "waon.exe")
+    if os.name == "nt":
+        command = os.path.join(this_directory, "waon-0.11-mingw", "waon.exe")
+    else:
+        command = os.path.join(this_directory, "waon-0.11-mingw", "waon")
     if " " in command:
         command = "\""+command+"\""
     shellCommand = command+" -i \"{}\" -o \"{}\" "

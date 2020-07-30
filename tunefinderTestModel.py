@@ -64,7 +64,7 @@ def testMachine(modelPath, testPath):
             print("Actual: {}\n".format(actualName))
 
 
-def testFile(model, fileNames, testFilePath):
+def testFile(model, fileNames, testFilePath, useNames=True):
     try:
         t = loadTest(testFilePath)
         pred = model.predict_proba(t)
@@ -74,19 +74,20 @@ def testFile(model, fileNames, testFilePath):
             total += this_pred
         total /= len(pred)
         pred = total
-        pred = [(x, i) for i, x in enumerate(pred) if x != 0]
+        pred = [(round(x, 6), i) for i, x in enumerate(pred) if x != 0]
         pred.sort()
         pred.reverse()
-        pred = [(x, os.path.basename(fileNames[y])) for x, y in pred]
+        if useNames:
+            pred = [(x, os.path.basename(fileNames[y])) for x, y in pred]
         return pred
     except Exception as e:
         # print(e)
         return []
 
 
-def testFileFromPaths(modelPath, testFilePath):
+def testFileFromPaths(modelPath, testFilePath, useNames=True):
     a, b = loadModel(modelPath)
-    return testFile(a, b, testFilePath)
+    return testFile(a, b, testFilePath, useNames=useNames)
 
 
 def testModelOnFile(featurePath, testPath):
@@ -107,6 +108,11 @@ def loadModel(path):
         return model, classes
     else:
         return None, None
+
+
+def loadFileNames(path):
+    _, a = loadModel(path)
+    return a
 
 
 def saveModel(path, data, ClassNames):
