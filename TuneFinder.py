@@ -1,7 +1,7 @@
 import argparse
-from ConvertWavToMidi import singleWavToMidi
-from ConvertMidiToFeatures import fileMidiToFeatures
-from tunefinderTestModel import testFileFromPaths
+from .ConvertWavToMidi import singleWavToMidi
+from .ConvertMidiToFeatures import fileMidiToFeatures
+from .tunefinderTestModel import testFileFromPaths
 import os
 
 
@@ -11,11 +11,12 @@ def main(model_path, test_path):
     mid_path = os.path.join(test_folder, file_name+".mid")
     feature_path = os.path.join(test_folder, file_name+".json")
     if not os.path.exists(test_folder):
+        print("making "+test_folder)
         os.makedirs(test_folder)
     singleWavToMidi(test_path, mid_path, skipExistingMidiFiles=False)
     fileMidiToFeatures(mid_path, feature_path, secondsPerClip=8,
                        featuresPerClip=200, spread=4, tempoSpread=3)
-    print(testFileFromPaths(model_path, feature_path, useNames=False))
+    return testFileFromPaths(model_path, feature_path)
 
 
 if __name__ == "__main__":

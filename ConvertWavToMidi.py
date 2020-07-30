@@ -1,6 +1,6 @@
 import os
 import subprocess
-import FileManagement
+from .FileManagement import listAllFiles
 
 
 def __getCommand__(clean=False):
@@ -43,7 +43,7 @@ def singleWavToMidi(inputPath, outputPath, skipExistingMidiFiles=True):
 
 
 def folderWavToMidi(inputPath, outputPath, skipExistingMidiFiles=True):
-    files = FileManagement.listAllFiles(inputPath, relative=True)
+    files = listAllFiles(inputPath, relative=True)
     inOuts = [[os.path.join(inputPath, x), os.path.join(outputPath, x)]
               for x in files]
 

@@ -1,7 +1,7 @@
 import argparse
 import warnings
-import ConvertWavToMidi
-import ConvertMidiToFeatures
+from .ConvertWavToMidi import folderWavToMidi
+from .ConvertMidiToFeatures import folderMidiToFeatures
 import os
 
 
@@ -47,8 +47,7 @@ def main():
         exit()
 
     warnings.simplefilter("ignore")
-    ConvertWavToMidi.folderWavToMidi(
-        inputFolder, midiFolder, skipExistingMidiFiles=skipMidi)
+    folderWavToMidi(inputFolder, midiFolder, skipExistingMidiFiles=skipMidi)
 
     skipFeatures = args["skipfeatures"]
     clipLength = args["cliplength"]
@@ -59,8 +58,8 @@ def main():
         spread = clipLength-1
     tempoSpread = args["tempospread"]
 
-    ConvertMidiToFeatures.folderMidiToFeatures(
-        midiFolder, featureFolder, skipExistingFiles=skipFeatures, secondsPerClip=clipLength, featuresPerClip=featuresPerClip, spread=spread, tempoSpread=tempoSpread)
+    folderMidiToFeatures(midiFolder, featureFolder, skipExistingFiles=skipFeatures,
+                         secondsPerClip=clipLength, featuresPerClip=featuresPerClip, spread=spread, tempoSpread=tempoSpread)
 
 
 if __name__ == "__main__":

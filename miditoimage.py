@@ -1,8 +1,8 @@
 from PIL import Image, ImageDraw
-import ConvertMidiToFeatures
+from .utils import convertMidiToEvents
 import math
 from scipy.stats import zscore
-from utils import (midiNoteToFrequency, frequencyToMidiNote, MidiEvent)
+from .utils import (midiNoteToFrequency, frequencyToMidiNote, MidiEvent)
 
 OFF = 0
 VALID = 1
@@ -64,7 +64,7 @@ def main():
 
 
 def cleanMidi(filepath, features_per_second=40):
-    events = ConvertMidiToFeatures.convertMidiToEvents(filepath)
+    events = convertMidiToEvents(filepath)
 
     midiend = events[-1].time_off
 

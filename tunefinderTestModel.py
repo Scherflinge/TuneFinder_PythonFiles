@@ -7,7 +7,7 @@ import numpy as np
 import json
 import math
 import joblib
-import FileManagement
+from .FileManagement import listAllFilesPerDir
 import argparse
 
 
@@ -52,7 +52,7 @@ def testMachine(modelPath, testPath):
     clf, filenames = loadModel(modelPath)
     names = filenames
     num_classes = len(names)
-    files = FileManagement.listAllFilesPerDir(testPath)
+    files = listAllFilesPerDir(testPath)
     for x in files.keys():
         featfiles = files[x]
         for y in featfiles:
@@ -163,7 +163,7 @@ def loadData(path):
     count = 0
     print("Loading Data...")
 
-    allfiles = FileManagement.listAllFilesPerDir(path)
+    allfiles = listAllFilesPerDir(path)
     for di in allfiles:
         classes.append(di)
         fileList = allfiles[di]
